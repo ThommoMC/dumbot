@@ -33,6 +33,13 @@ async def gamevote(ctx):
     print(f"{ctx.author} has started a gamevote!")
     ui.games.clear()
     ui.uservoted.clear()
-    await ctx.respond(f"{ctx.author} has declared a game vote!", view=ui.GameVote(timeout=30))
+    await ctx.respond(f"{ctx.author} has started a game vote!", view=ui.GameVote(timeout=30))
+
+@bot.command(description="Makes text alternate between uppercase and lowercase")
+async def alternate(ctx, text: discord.Option(discord.SlashCommandOptionType.string)):
+    res = [ele.upper() if not idx % 2 else ele.lower()
+    for idx, ele in enumerate(text)]
+    res = "".join(res)
+    await ctx.respond(res)
 
 bot.run(os.getenv("DISCORD_TOKEN"))
